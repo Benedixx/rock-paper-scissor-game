@@ -1,0 +1,14 @@
+names:
+- Paper
+- Rock
+- Scissor
+nc: 3
+roboflow:
+  license: CC BY 4.0
+  project: rock-paper-scissor-pezaz
+  url: https://universe.roboflow.com/kmutt-2nwsx/rock-paper-scissor-pezaz/dataset/4
+  version: 4
+  workspace: kmutt-2nwsx
+test: ../test/images
+train: Rock-Paper-Scissor-4/train/images
+val: Rock-Paper-Scissor-4/valid/images
