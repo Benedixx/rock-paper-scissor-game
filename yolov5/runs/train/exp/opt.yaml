@@ -1,6 +1,6 @@
-weights: yolov5s.pt
+weights: yolov5x.pt
 cfg: ''
-data: /kaggle/working/yolov5/Rock-Paper-Scissor-4/data.yaml
+data: /kaggle/working/yolov5/pasrw-1/data.yaml
 hyp:
   lr0: 0.01
   lrf: 0.01
@@ -57,7 +57,7 @@ exist_ok: false
 quad: false
 cos_lr: false
 label_smoothing: 0.0
-patience: 100
+patience: 50
 freeze:
 - 0
 save_period: -1
