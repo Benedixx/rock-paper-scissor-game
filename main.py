@@ -19,6 +19,12 @@ model = torch.hub.load('ultralytics/yolov5',
 # Open webcam
 cap = cv2.VideoCapture(0)
 
+left_box_found = False
+right_box_found = False
+game_start = False
+left_hand= None
+right_hand= None
+
 while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -30,18 +36,57 @@ while True:
     length = frame.shape[0]
     width = frame.shape[1]
     cv2.line(frame, (int(width/2), 0), (int(width/2), length), (0, 255, 0), 3)
+    if not game_start:
+        cv2.putText(frame, "Press 's' to start the game", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+    
+    if cv2.waitKey(1) & 0xFF == ord('s'):
+        game_start = True
 
     # Convert to PIL image
     pil_image = Image.fromarray(rgb_frame)
 
     # Inference
-    results = model(pil_image, size=640)  # single image
-    for box in results.xyxy[0]:
-        x_min, y_min, x_max, y_max, confidence, class_pred = box.tolist()
-        print(f"Bounding Box Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}")
-        print(f"Confidence: {confidence}, Class: {class_pred}")
+    results = model(pil_image, size=640)
+    if game_start == True:
+        for box in results.xyxy[0]:
+            x_min, y_min, x_max, y_max, confidence, class_pred = box.tolist()
+            if box[0] > width/2 and not right_box_found:
+                print(f"Bounding Box right Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}")
+                right_hand = class_pred
+                print("Right class: ", right_hand)
+                right_box_found = True
+            elif box[0] <= width/2 and not left_box_found:
+                print(f"Bounding Box left Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}")
+                left_hand = class_pred
+                print("Left class: ", left_hand)
+                left_box_found = True
+            if left_box_found and right_box_found:
+                if right_hand == left_hand:
+                    cv2.putText(frame, "DRAW", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    game_start = False
+                elif right_hand == 0 and left_hand == 2:
+                    cv2.putText(frame, "Right hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    game_start = False
+                elif right_hand == 2 and left_hand == 0:
+                    cv2.putText(frame, "Left hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    game_start = False
+                elif right_hand == 0 and left_hand == 1:
+                    cv2.putText(frame, "Left hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    game_start = False
+                elif right_hand == 1 and left_hand == 0:
+                    cv2.putText(frame, "Right hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+                    game_start = False    
+            if cv2.waitKey(1) & 0xFF == ord('s'):
+                game_start = True
+                left_box_found = False
+                right_box_found = False
 
-    # Display the results
+        # Display the results
     cv2.imshow('YOLOv5 Webcam Inference', results.render()[0])
 
     # Break the loop if 'q' key is pressed
