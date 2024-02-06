@@ -22,6 +22,7 @@ cap = cv2.VideoCapture(0)
 left_box_found = False
 right_box_found = False
 game_start = False
+game_finish = False
 left_hand= None
 right_hand= None
 
@@ -36,11 +37,11 @@ while True:
     length = frame.shape[0]
     width = frame.shape[1]
     cv2.line(frame, (int(width/2), 0), (int(width/2), length), (0, 255, 0), 3)
-    if not game_start:
+    if not game_start and not game_finish :
         cv2.putText(frame, "Press 's' to start the game", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+        if cv2.waitKey(1) & 0xFF == ord('s'):
+            game_start = True
     
-    if cv2.waitKey(1) & 0xFF == ord('s'):
-        game_start = True
 
     # Convert to PIL image
     pil_image = Image.fromarray(rgb_frame)
@@ -60,37 +61,91 @@ while True:
                 left_hand = class_pred
                 print("Left class: ", left_hand)
                 left_box_found = True
-            if left_box_found and right_box_found:
-                if right_hand == left_hand:
-                    cv2.putText(frame, "DRAW", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    game_start = False
-                elif right_hand == 0 and left_hand == 2:
-                    cv2.putText(frame, "Right hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    game_start = False
-                elif right_hand == 2 and left_hand == 0:
-                    cv2.putText(frame, "Left hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    game_start = False
-                elif right_hand == 0 and left_hand == 1:
-                    cv2.putText(frame, "Left hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    game_start = False
-                elif right_hand == 1 and left_hand == 0:
-                    cv2.putText(frame, "Right hand wins", (width/2, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    cv2.putText(frame, "Press 's' to play again", (width/3, length/2), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
-                    game_start = False    
-            if cv2.waitKey(1) & 0xFF == ord('s'):
-                game_start = True
-                left_box_found = False
-                right_box_found = False
+        
+        
+    if left_box_found == True and right_box_found == True:
+        if right_hand == left_hand:
+            # cv2.putText(frame, "DRAW", (int(width/2), int(length/2)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (int(width/3), int(length/2)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("DRAW")
+            game_start = False
+            game_finish = True
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False
+        elif right_hand == 0 and left_hand == 2:
+            # cv2.putText(frame, "Right hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("Right hand wins")
+            game_start = False
+            game_finish = True
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False
+        elif right_hand == 2 and left_hand == 0:
+            # cv2.putText(frame, "Left hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("Left hand wins")
+            game_start = False
+            game_finish = True
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False
+        elif right_hand == 0 and left_hand == 1:
+            # cv2.putText(frame, "Left hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("Left hand wins")
+            game_start = False
+            game_finish = True    
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False
+        elif right_hand == 1 and left_hand == 0:
+            # cv2.putText(frame, "Right hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("Right hand wins")
+            game_start = False
+            game_finish = True 
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False
+        elif right_hand == 1 and left_hand == 2:
+            # cv2.putText(frame, "Left hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("Left hand wins")
+            game_start = False
+            game_finish = True
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False
+        elif right_hand == 2 and left_hand == 1:
+            # cv2.putText(frame, "Right hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
+            print("Right hand wins")
+            game_start = False
+            game_finish = True
+            left_hand= None
+            right_hand= None
+            left_box_found = False
+            right_box_found = False   
+            
+    if cv2.waitKey(1) & 0xFF == ord('s'):
+        game_start = True
+        game_finish = False
+        
 
         # Display the results
     cv2.imshow('YOLOv5 Webcam Inference', results.render()[0])
 
     # Break the loop if 'q' key is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        print("Quitting the game")
         break
 
 # Release the webcam and close the window
