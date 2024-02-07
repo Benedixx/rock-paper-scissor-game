@@ -13,7 +13,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 # Model
 model = torch.hub.load('ultralytics/yolov5', 
                        'custom', 
-                       path=ROOT / "yolov5/runs/train/exp2/weights/best.pt"
+                       path=ROOT / "yolov5/runs/train/exp/weights/best.pt"
                        )  # local model
 
 # Open webcam
@@ -68,6 +68,7 @@ while True:
             # cv2.putText(frame, "DRAW", (int(width/2), int(length/2)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (int(width/3), int(length/2)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("DRAW")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True
             left_hand= None
@@ -78,6 +79,7 @@ while True:
             # cv2.putText(frame, "Right hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("Right hand wins")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True
             left_hand= None
@@ -88,6 +90,7 @@ while True:
             # cv2.putText(frame, "Left hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("Left hand wins")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True
             left_hand= None
@@ -98,6 +101,7 @@ while True:
             # cv2.putText(frame, "Left hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("Left hand wins")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True    
             left_hand= None
@@ -108,6 +112,7 @@ while True:
             # cv2.putText(frame, "Right hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("Right hand wins")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True 
             left_hand= None
@@ -118,6 +123,7 @@ while True:
             # cv2.putText(frame, "Left hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("Left hand wins")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True
             left_hand= None
@@ -128,6 +134,7 @@ while True:
             # cv2.putText(frame, "Right hand wins", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             # cv2.putText(frame, "Press 's' to play again", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 5, cv2.LINE_AA)
             print("Right hand wins")
+            print("Press 's' to play again")
             game_start = False
             game_finish = True
             left_hand= None
