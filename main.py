@@ -13,7 +13,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 # Model
 model = torch.hub.load('ultralytics/yolov5', 
                        'custom', 
-                       path=ROOT / "yolov5/runs/train/exp/weights/best.pt"
+                       path=ROOT / "yolov5/runs/train/exp2/weights/best.pt"
                        )  # local model
 
 # Open webcam
@@ -47,7 +47,7 @@ while True:
     pil_image = Image.fromarray(rgb_frame)
 
     # Inference
-    results = model(pil_image, size=640)
+    results = model(pil_image, size=512)
     if game_start == True:
         for box in results.xyxy[0]:
             x_min, y_min, x_max, y_max, confidence, class_pred = box.tolist()

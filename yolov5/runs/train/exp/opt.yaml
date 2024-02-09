@@ -1,6 +1,6 @@
 weights: yolov5s.pt
 cfg: ''
-data: /kaggle/working/yolov5/pasrw-5/data.yaml
+data: /kaggle/working/yolov5/pasrw-7/data.yaml
 hyp:
   lr0: 0.01
   lrf: 0.01
@@ -31,7 +31,7 @@ hyp:
   mixup: 0.0
   copy_paste: 0.0
 epochs: 1000
-batch_size: 64
+batch_size: 128
 imgsz: 512
 rect: false
 resume: false
