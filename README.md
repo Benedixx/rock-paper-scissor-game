@@ -1,45 +1,37 @@
 # Rock paper scissor object detection
 
 ## Project Overview
-
 This project aims to make AI as referee for rock paper scissor game using webcam as input, i use yoloV5 algorithm to detect user hand and determine the hand of left side and right side. the result is shown when the left side and right side hand is captured.
+![demo](https://github.com/Benedixx/rock-paper-scissor-game/assets/97221880/3af442bd-993d-4619-92e5-dfba2c7d9ec0)
 
 ## Dataset
 
-The dataset used for this project can be found [here](https://www.kaggle.com/datasets/navoneel/brain-mri-images-for-brain-tumor-detection/data). It consists of brain MRI images with labeled tumor types. Ensure that you have downloaded and preprocessed the dataset as required before running the code or you can use the dataset that i provided on this repository.
+The dataset used for this project can be found [here](https://universe.roboflow.com/ikan-vzjcv/rock-paper-scissor-coy2k). It consists of human hand that form a shape of rock, paper, scissor that already annotated. you can export the dataset with yolov5 yaml format.
 
-Dataset contains :<br>
-number of glioma training data: 702 <br>
-number of meningioma training data: 704<br>
-number of training data without tumors: 280<br>
-number of pituitary training data: 576<br>
+## Installation
+```
+git clone https://github.com/ultralytics/yolov5
+cd yolov5
+pip install -r requirements.txt
+pip install shapely=2.0.1 & numpy=1.16.0
+```
 
-number of glioma validation data: 199<br>
-number of meningioma validation data: 209<br>
-number of without tumors validation data: 158<br>
-number of pituitary validation data: 268<br>
-
-
-## Model Architecture
-
-The deep learning model is built using the TensorFlow Keras libraries. The architecture typically involves:
-
-- Preprocessing the MRI images (resizing, normalization, augmentation, etc.).
-- Creating a Convolutional Neural Network (CNN) with several convolutional and pooling layers and adding dense layers with 4 output.
-- Compiling the model with an appropriate loss function and optimizer.
-- Training the model on the dataset.
-
-You can find the detailed architecture and code in the Jupyter Notebook or Python script provided in this repository.
+## usage
+```
+python main.py
+```
 
 ## Training Result
-### training and validation acccuracy graph
-![image](https://github.com/Benedixx/Brain-Tumor-Classification-tensorflow/assets/97221880/8d4be853-37a6-4ded-af6f-de1557620553)
+### yolov5s result
+![results](https://github.com/Benedixx/rock-paper-scissor-game/assets/97221880/ab3e32d5-64f7-4709-9776-3c8d473a3faa)
 
-### training and validation loss graph
-![image](https://github.com/Benedixx/Brain-Tumor-Classification-tensorflow/assets/97221880/85623827-4d56-41fd-9b58-9eb88f9dbdae)
 
-### training and validation acccuracy on last epoch
-```bash
-Epoch 25/25
-194/194 [==============================] - 31s 158ms/step - loss: 0.0020 - accuracy: 0.9990 - val_loss: 1.3206e-04 - val_accuracy: 1.0000
-```
+### yolov5m result
+![results](https://github.com/Benedixx/rock-paper-scissor-game/assets/97221880/debeca0e-17c6-4e13-a73e-12107adaa4dd)
+
+## Future Development
+* The result only shown if the left hand and right hand hand is detected or at least 1 second after one of the either hand detected
+* The main script need to run continuously after the round is over/result is shown
+* Need to clean the code ofc hehehehehehe ٩(◕‿◕｡)۶
+
+
