@@ -2,7 +2,9 @@
 
 ## Project Overview
 This project aims to make AI as referee for rock paper scissor game using webcam as input, i use yoloV5 algorithm to detect user hand and determine the hand of left side and right side. the result is shown when the left side and right side hand is captured.
-![demo](https://github.com/Benedixx/rock-paper-scissor-game/assets/97221880/3af442bd-993d-4619-92e5-dfba2c7d9ec0)
+<p align="center">
+  <img src="https://github.com/Benedixx/rock-paper-scissor-game/blob/main/assets/demo.gif" alt="animated" />
+</p>
 
 ## Dataset
 
